@@ -9,17 +9,16 @@ module.exports = webpackMerge(common, {
     mode: 'development',
 
     output: {
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
         chunkFilename: '[id].chunk.js',
     },
 
-    plugins: [
-        new ExtractTextPlugin('[name].css'),
-    ],
+    plugins: [new ExtractTextPlugin('[name].css')],
 
     devServer: {
-        contentBase: path.join(__dirname, "www"),
+        contentBase: path.join(__dirname, 'www'),
         port: 3000,
+        historyApiFallback: true,
     },
 });
