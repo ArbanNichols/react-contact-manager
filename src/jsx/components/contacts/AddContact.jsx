@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Consumer } from '../../context';
 import TextInputGroup from '../layout/TextInputGroup';
-import uuid from 'uuid';
 
 export default class AddContact extends Component {
     state = {
@@ -33,11 +32,9 @@ export default class AddContact extends Component {
         }
 
         const newContact = {
-            id: uuid(),
             name,
             email,
             phone,
-            errors: {},
         };
 
         dispatch({ type: 'ADD_CONTACT', payload: newContact });

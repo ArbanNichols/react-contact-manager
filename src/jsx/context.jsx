@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import {
+    deleteContact,
+    addContact,
+    FETCH_URL,
+} from '../js/network/httputils.js';
 
 const Context = React.createContext();
 const reducer = (state, action) => {
     switch (action.type) {
         case 'DELETE_CONTACT':
+            deleteContact(action.payload);
             return {
                 ...state,
                 contacts: state.contacts.filter(
@@ -11,9 +17,10 @@ const reducer = (state, action) => {
                 ),
             };
         case 'ADD_CONTACT':
+            const returnId = addContact(action.payload);
             return {
                 ...state,
-                contacts: [action.payload, ...state.contacts],
+                contacts: [...returnId, ...state.contacts],
             };
         default:
             return state;
@@ -22,28 +29,15 @@ const reducer = (state, action) => {
 
 export class Provider extends Component {
     state = {
-        contacts: [
-            {
-                id: 10000,
-                name: 'Billy Cobham',
-                email: 'billy.cobham@gmail.com',
-                phone: '',
-            },
-            {
-                id: 10001,
-                name: 'Ramsey Lewis',
-                email: 'ramsey.lewis@gmail.com',
-                phone: '',
-            },
-            {
-                id: 10002,
-                name: 'John Coltrane',
-                email: 'john.coltrane@gmail.com',
-                phone: '',
-            },
-        ],
+        contacts: [],
         dispatch: action => this.setState(state => reducer(state, action)),
     };
+
+    componentDidMount() {
+        fetch(FETCH_URL)
+            .then(response => response.json())
+            .then(data => this.setState({ contacts: [...data] }));
+    }
 
     render() {
         return (
