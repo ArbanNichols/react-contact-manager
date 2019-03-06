@@ -7,6 +7,7 @@
         "compile": "webpack --config webpack.config.prod.js --colors --bail --env.PLATFORM=production",
         "start": "webpack-dev-server --config webpack.config.dev.js --colors --env.PLATFORM=local"
     },
+    "main": "index.jsx",
     "devDependencies": {
         "@babel/core": "^7.3.4",
         "@babel/plugin-proposal-class-properties": "^7.3.4",

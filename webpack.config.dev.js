@@ -5,8 +5,8 @@ const common = require('./webpack.config.common.js');
 const dev = env => {
     return merge([
         {
-            devtool: 'inline-source-map',
             mode: 'development',
+            devtool: 'inline-source-map',
             devServer: {
                 hot: true,
                 port: 3000,

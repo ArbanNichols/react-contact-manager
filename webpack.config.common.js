@@ -6,11 +6,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const APP_DIR = path.resolve(__dirname, './src/');
+
 module.exports = env => {
     const { PLATFORM } = env;
     return merge([
         {
-            entry: ['@babel/polyfill'],
+            entry: ['@babel/polyfill', APP_DIR],
             module: {
                 rules: [
                     {
