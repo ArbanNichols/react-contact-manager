@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Consumer } from './context';
-import Header from './components/layout/Header';
-import Contacts from './components/contacts/Contacts';
-import AddContact from './components/contacts/AddContact';
-import EditContact from './components/contacts/EditContact';
-import About from './components/pages/About';
-import NotFound from './components/pages/NotFound';
+import { Consumer } from '../context';
+import { Provider } from '../context';
 
-import { Provider } from './context';
+import Header from './layout/Header';
+import Contacts from './contacts/Contacts';
+import AddContact from './contacts/AddContact';
+import EditContact from './contacts/EditContact';
+import About from './pages/About';
+import NotFound from './pages/NotFound';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
