@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import {
-    deleteContact,
-    addContact,
-    FETCH_URL,
-} from '../js/network/httputils.js';
 
 const Context = React.createContext();
 const reducer = (state, action) => {
     switch (action.type) {
         case 'DELETE_CONTACT':
-            deleteContact(action.payload);
             return {
                 ...state,
                 contacts: state.contacts.filter(
@@ -17,10 +11,18 @@ const reducer = (state, action) => {
                 ),
             };
         case 'ADD_CONTACT':
-            const returnId = addContact(action.payload);
             return {
                 ...state,
-                contacts: [...returnId, ...state.contacts],
+                contacts: [action.payload, ...state.contacts],
+            };
+        case 'UPDATE_CONTACT':
+            return {
+                ...state,
+                contacts: state.contacts.map(contact =>
+                    contact.id === action.payload.id
+                        ? (contact = action.payload)
+                        : contact,
+                ),
             };
         default:
             return state;
@@ -30,13 +32,14 @@ const reducer = (state, action) => {
 export class Provider extends Component {
     state = {
         contacts: [],
+        fetchUrl: 'https://jsonplaceholder.typicode.com/users/',
         dispatch: action => this.setState(state => reducer(state, action)),
     };
 
-    componentDidMount() {
-        fetch(FETCH_URL)
-            .then(response => response.json())
-            .then(data => this.setState({ contacts: [...data] }));
+    async componentDidMount() {
+        const res = await axios.get(this.state.fetchUrl);
+
+        this.setState({ contacts: [...res.data] });
     }
 
     render() {

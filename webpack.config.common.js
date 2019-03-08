@@ -45,6 +45,7 @@ module.exports = env => {
                 }),
                 new webpack.ProvidePlugin({
                     PropTypes: 'prop-types',
+                    axios: 'axios',
                 }),
             ],
             resolve: {
